@@ -5,4 +5,4 @@ This series is a work-in-progress.
 
 | Starting template  | Static sprite | Cursor | Simple animation |
 | ------------- | ------------- | ------------- | ------------- |
-| Content Cell  | Content Cell  | Content Cell  | Content Cell  |
+| ![Starting template](/tutorials/00_baldies_arcade_template.gif)  | Content Cell  | Content Cell  | Content Cell  |
