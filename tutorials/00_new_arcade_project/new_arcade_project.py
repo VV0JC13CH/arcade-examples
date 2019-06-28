@@ -1,87 +1,84 @@
 """
-new_arcade_project.py
+Arcade Starting Template from bitStudio.dev
+Added few useful methods and variables:
 
++on_resize method
++set_viewport method
++on_mouse_scroll method
++set_mouse_visible method
+
++resizable
++fullscreen
++update_rate
++antialiasing
 """
-
 import arcade
-import timeit
-
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Baldies Arcade Template"
+SCREEN_TITLE = "New Arcade Project"
 
+# Change default values
+SCREEN_RESIZABLE = False
+SCREEN_FULLSCREEN = False
+VISIBLE_MOUSE = True
+# 1/20 means constant 60 fps
+SCREEN_UPDATE_RATE = 1/60
+SCREEN_ANTIALIASING = True
 
 class MyGame(arcade.Window):
     """
     Main application class.
+
+    NOTE: Go ahead and delete the methods you don't need.
+    If you do need a method, delete the 'pass' and replace it
+    with your own code. Don't leave 'pass' in this program.
     """
 
-    def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        self.total_time = 0.0
-        self.processing_time = 0
-        self.draw_time = 0
-        self.frame_count = 0
-        self.fps_start_timer = None
-        self.fps = None
-        self.font_color = None
+    def __init__(self, width, height, title, resizable, fullscreen, update_rate, antialiasing):
+        super().__init__(width,height, title, resizable, fullscreen, update_rate, antialiasing)
+        self.set_mouse_visible(VISIBLE_MOUSE)
+        arcade.set_background_color(arcade.color.BATTLESHIP_GREY)
+
+        # If you have sprite lists, you should create them here,
+        # and set them to None
 
     def setup(self):
-        """
-        Set up the application.
-        """
-        arcade.set_background_color(arcade.color.BLUE_GRAY)
-        self.total_time = 0.0
-        self.font_color = arcade.color.BLACK
-        self.fps_start_timer = 0
-        self.fps = 0
+        # Create your sprites and sprite lists here
+        pass
 
     def on_draw(self):
-        """ Use this function to draw everything to the screen. """
-        self.calculate_fps()
-        # Start the render. This must happen before any drawing
-        # commands. We do NOT need an stop render command.
+        """
+        Render the screen.
+        """
+
+        # This command should happen before we start drawing. It will clear
+        # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
-        draw_start_time = timeit.default_timer()
-        self.draw_hud(draw_start_time)
 
-    def calculate_fps(self):
-        if self.frame_count % 60 == 0:
-            if self.fps_start_timer is not None:
-                total_time = timeit.default_timer() - self.fps_start_timer
-                self.fps = 60 / total_time
-            self.fps_start_timer = timeit.default_timer()
-        self.frame_count += 1
+        # Call draw() on all your sprite lists below
 
-    def draw_hud(self, draw_start_time):
+    def set_viewport(self, left, right, bottom, top):
         """
-        Display timings
+        Set the viewport. (What coordinates we can see.
+        Used to scale and/or scroll the screen.)
         """
-        output = f"Processing time: {self.processing_time:.3f}"
-        arcade.draw_text(output, 10, (SCREEN_HEIGHT - 20), self.font_color, 16)
-
-        output = f"Drawing time: {self.draw_time:.3f}"
-        arcade.draw_text(output, 10, (SCREEN_HEIGHT - 40), self.font_color, 16)
-
-        minutes = int(self.total_time) // 60
-        seconds = int(self.total_time) % 60
-        output = f"Running time: {minutes:02d}:{seconds:02d}"
-        arcade.draw_text(output, 10, (SCREEN_HEIGHT - 60), self.font_color, 16)
-
-        if self.fps is not None:
-            output = f"FPS: {self.fps:.0f}"
-            arcade.draw_text(output, 10, (SCREEN_HEIGHT - 80), self.font_color, 16)
-        self.draw_time = timeit.default_timer() - draw_start_time
+        pass
 
     def update(self, delta_time):
         """
         All the logic to move, and the game logic goes here.
+        Normally, you'll call update() on the sprite lists that
+        need it.
         """
-        self.total_time += delta_time
-        draw_start_time = timeit.default_timer()
-        self.processing_time = timeit.default_timer() - draw_start_time
+        pass
 
+    def on_resize(self, width: float, height: float):
+        """
+        Override this function to add custom code to be called any time the window
+        is resized.
+        """
+        pass
 
     def on_key_press(self, key, key_modifiers):
         """
@@ -116,10 +113,24 @@ class MyGame(arcade.Window):
         """
         pass
 
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        """
+        User moves the scroll wheel.
+
+        """
+        pass
+
 
 def main():
-    window = MyGame()
-    window.setup()
+    """ Main method """
+    game = MyGame(SCREEN_WIDTH,
+                  SCREEN_HEIGHT,
+                  SCREEN_TITLE,
+                  SCREEN_RESIZABLE,
+                  SCREEN_FULLSCREEN,
+                  SCREEN_UPDATE_RATE,
+                  SCREEN_ANTIALIASING)
+    game.setup()
     arcade.run()
 
 
