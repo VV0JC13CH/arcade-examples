@@ -8,7 +8,6 @@ Added few useful methods and variables:
 +resizable
 +fullscreen
 +update_rate
-+antialiasing
 """
 import arcade
 import timeit
@@ -21,8 +20,9 @@ SCREEN_TITLE = "New Arcade Project"
 SCREEN_RESIZABLE = False
 SCREEN_FULLSCREEN = False
 VISIBLE_MOUSE = True
-# 1/20 means constant 60 fps
-SCREEN_UPDATE_RATE = 1/60
+# 1/60 means constant 60 fps
+SCREEN_UPDATE_RATE = None
+
 
 class MyGame(arcade.Window):
     """
@@ -32,19 +32,20 @@ class MyGame(arcade.Window):
     with your own code. Don't leave 'pass' in this program.
     """
 
-    def __init__(self, width, height, title, resizable, fullscreen):
-        super().__init__(width,height, title, resizable, fullscreen)
+    def __init__(self, width, height, title, fullscreen, resizable):
+        super().__init__(width,height, title, fullscreen, resizable)
 
         self.processing_time = 0
+        self.running_time = 0
         self.draw_time = 0
         self.frame_count = 0
         self.fps_start_timer = None
         self.fps = None
-
-        self.set_update_rate(SCREEN_UPDATE_RATE)
+        if SCREEN_UPDATE_RATE is not None:
+            self.set_update_rate(SCREEN_UPDATE_RATE)
         self.set_mouse_visible(VISIBLE_MOUSE)
         self.font_color=arcade.color.BLACK
-        arcade.set_background_color(arcade.color.BATTLESHIP_GREY)
+        arcade.set_background_color(arcade.color.PALATINATE_BLUE)
 
         # If you have sprite lists, you should create them here,
         # and set them to None
@@ -54,33 +55,49 @@ class MyGame(arcade.Window):
         pass
 
     def calculate_fps(self):
-        if self.frame_count % 60 == 0:
-            if self.fps_start_timer is not None:
-                total_time = timeit.default_timer() - self.fps_start_timer
-                self.fps = 60 / total_time
-            self.fps_start_timer = timeit.default_timer()
-        self.frame_count += 1
+        if SCREEN_UPDATE_RATE is None:
+            if self.frame_count % 60 == 0:
+                if self.fps_start_timer is not None:
+                    total_time = timeit.default_timer() - self.fps_start_timer
+                    self.fps = 60 / total_time
+                self.fps_start_timer = timeit.default_timer()
+            self.frame_count += 1
+        if SCREEN_UPDATE_RATE is not None:
+            self.fps = SCREEN_UPDATE_RATE ** (-1)
+
+    def format_time(self):
+        total_time_hou = int(self.running_time) // 3600
+        total_time_min = int(self.running_time) // 60
+        total_time_sec = int(self.running_time) % 60
+        total_time_string = f"{total_time_hou:02d}:{total_time_min:02d}:{total_time_sec:02d}"
+        return total_time_string
 
     def on_draw_hud(self, draw_start_time):
-        # Display timings
-        output = f"Processing time: {self.processing_time:.3f}"
+        output = f"Running time: {self.format_time()}"
         arcade.draw_text(output, 10, (SCREEN_HEIGHT-20), self.font_color, 16)
 
+        # Display timings
+        output = f"Processing time: {self.processing_time:.3f}"
+        arcade.draw_text(output, 10, (SCREEN_HEIGHT-40), self.font_color, 16)
+
         output = f"Drawing time: {self.draw_time:.3f}"
-        arcade.draw_text(output, 10 , (SCREEN_HEIGHT-40), self.font_color, 16)
+        arcade.draw_text(output, 10 , (SCREEN_HEIGHT-60), self.font_color, 16)
 
         if self.fps is not None:
             output = f"FPS: {self.fps:.0f}"
-            arcade.draw_text(output, 10 , (SCREEN_HEIGHT-60), self.font_color, 16)
+            arcade.draw_text(output, 10 , (SCREEN_HEIGHT-80), self.font_color, 16)
 
         self.draw_time = timeit.default_timer() - draw_start_time
 
     def on_draw(self):
         # Start timing how long this takes
         draw_start_time = timeit.default_timer()
-        self.calculate_fps()
         arcade.start_render()
         self.on_draw_hud(draw_start_time)
+        arcade.finish_render()
+        self.calculate_fps()
+
+
 
     def set_viewport(self, left, right, bottom, top):
         """
@@ -95,7 +112,7 @@ class MyGame(arcade.Window):
         Normally, you'll call update() on the sprite lists that
         need it.
         """
-        pass
+        self.running_time += delta_time
 
     def on_resize(self, width: float, height: float):
         """
@@ -148,8 +165,8 @@ def main():
     game = MyGame(SCREEN_WIDTH,
                   SCREEN_HEIGHT,
                   SCREEN_TITLE,
-                  SCREEN_RESIZABLE,
-                  SCREEN_FULLSCREEN)
+                  SCREEN_FULLSCREEN,
+                  SCREEN_RESIZABLE)
     game.setup()
     arcade.run()
 
