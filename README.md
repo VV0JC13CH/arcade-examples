@@ -1,5 +1,5 @@
 # arcade.py-examples
-RTS related examples.
+Arcade is an easy-to-learn Python library for creating 2D video games. It's place for arcade examples from bitStudio.dev.
 
 This series is a work-in-progress.
 
