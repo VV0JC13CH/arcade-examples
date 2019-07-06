@@ -2,6 +2,7 @@
 Arcade Frame Rate Example
 """
 import arcade
+import collections
 import time
 
 SCREEN_WIDTH = 250
@@ -19,24 +20,29 @@ class MyGame(arcade.Window):
         self.frame_start_time = 0
 
         # FPS:
-        self.start_time = 0
+        self.frame_start_time = 0
         self.frame_end_time = 0
-        self.frame_counter = 60
+
+        self.total_time = 0.0
+        self.time = time.perf_counter()
+        self.frame_times = collections.deque(maxlen=60)
 
         # Colors:
         self.font_color=arcade.color.WHITE_SMOKE
         arcade.set_background_color(arcade.color.COOL_BLACK)
+
+    def get_fps_collections(self):
+        total_time = sum(self.frame_times)
+        if total_time == 0:
+            return 0
+        else:
+            return len(self.frame_times) / sum(self.frame_times)
 
     def frame_start(self, current_time):
         self.frame_start_time = current_time
 
     def single_frame_tick(self):
         self.frame_end_time = time.time()
-
-    def get_fps_avg(self):
-        self.frame_counter += 1
-        fps = self.frame_counter / float(self.frame_end_time - self.start_time)
-        return fps
 
     def setup(self):
         self.start_time = time.time()
@@ -47,6 +53,12 @@ class MyGame(arcade.Window):
         total_time_sec = int(time) % 60
         total_time_string = f"{total_time_hou:02d}:{total_time_min:02d}:{total_time_sec:02d}"
         return total_time_string
+
+    def fps_tick(self):
+        t1 = time.perf_counter()
+        dt = t1 - self.time
+        self.time = t1
+        self.frame_times.append(dt)
 
     def on_draw(self):
         # Start timing how long this takes
@@ -62,13 +74,12 @@ class MyGame(arcade.Window):
         output = f"Drawing time: {self.draw_time:.3f}"
         arcade.draw_text(output, 10 , (SCREEN_HEIGHT-60), self.font_color, 16)
 
-        # Let's pretend something is going on here. We wait 1/60s to have solid 60FPS
-        time.sleep(1/60)
         self.single_frame_tick()
+        self.fps_tick()
 
-        # Display fps result of method 1 (current fps, each frame has own timing)
-        output = f"Average FPS: {self.get_fps_avg():.0f}"
-        arcade.draw_text(output, 10 , (SCREEN_HEIGHT-80), self.font_color, 16)
+        output = f"Collections FPS: {self.get_fps_collections():.0f}"
+        arcade.draw_text(output, 10, (SCREEN_HEIGHT-80), self.font_color, 16)
+
         arcade.finish_render()
 
     def update(self, delta_time):

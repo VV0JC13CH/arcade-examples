@@ -31,6 +31,9 @@ class MyGame(arcade.Window):
     def single_frame_tick(self):
         self.frame_end_time = time.time()
 
+    def single_frame_tick(self):
+        self.frame_end_time = time.time()
+
     def get_fps_current(self):
         fps = 1 / float(self.frame_end_time - self.frame_start_time)
         return fps

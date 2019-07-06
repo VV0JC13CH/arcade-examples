@@ -12,7 +12,7 @@ Added few useful methods and variables:
 import arcade
 import timeit
 
-SCREEN_WIDTH = 800
+SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "New Arcade Project"
 
@@ -21,7 +21,7 @@ SCREEN_RESIZABLE = False
 SCREEN_FULLSCREEN = False
 VISIBLE_MOUSE = True
 # 1/60 means constant 60 fps
-SCREEN_UPDATE_RATE = None
+SCREEN_UPDATE_RATE = 1/30
 
 
 class MyGame(arcade.Window):
@@ -32,8 +32,8 @@ class MyGame(arcade.Window):
     with your own code. Don't leave 'pass' in this program.
     """
 
-    def __init__(self, width, height, title, fullscreen, resizable):
-        super().__init__(width,height, title, fullscreen, resizable)
+    def __init__(self, width, height, title, fullscreen, resizable, update_rate):
+        super().__init__(width,height, title, fullscreen, resizable, update_rate)
 
         self.processing_time = 0
         self.running_time = 0
@@ -41,39 +41,35 @@ class MyGame(arcade.Window):
         self.frame_count = 0
         self.fps_start_timer = None
         self.fps = None
-        if SCREEN_UPDATE_RATE is not None:
-            self.set_update_rate(SCREEN_UPDATE_RATE)
         self.set_mouse_visible(VISIBLE_MOUSE)
         self.font_color=arcade.color.BLACK
-        arcade.set_background_color(arcade.color.PALATINATE_BLUE)
+        arcade.set_background_color(arcade.color.SKY_BLUE)
 
         # If you have sprite lists, you should create them here,
         # and set them to None
 
     def setup(self):
         # Create your sprites and sprite lists here
-        pass
+        if SCREEN_UPDATE_RATE is not None:
+            self.set_update_rate(SCREEN_UPDATE_RATE)
 
     def calculate_fps(self):
-        if SCREEN_UPDATE_RATE is None:
-            if self.frame_count % 60 == 0:
-                if self.fps_start_timer is not None:
-                    total_time = timeit.default_timer() - self.fps_start_timer
-                    self.fps = 60 / total_time
-                self.fps_start_timer = timeit.default_timer()
-            self.frame_count += 1
-        if SCREEN_UPDATE_RATE is not None:
-            self.fps = SCREEN_UPDATE_RATE ** (-1)
+        if self.frame_count % 60 == 0:
+            if self.fps_start_timer is not None:
+                total_time = timeit.default_timer() - self.fps_start_timer
+                self.fps = 60 / total_time
+            self.fps_start_timer = timeit.default_timer()
+        self.frame_count += 1
 
-    def format_time(self):
-        total_time_hou = int(self.running_time) // 3600
-        total_time_min = int(self.running_time) // 60
-        total_time_sec = int(self.running_time) % 60
+    def format_time(self, time):
+        total_time_hou = int(time) // 3600
+        total_time_min = int(time) // 60
+        total_time_sec = int(time) % 60
         total_time_string = f"{total_time_hou:02d}:{total_time_min:02d}:{total_time_sec:02d}"
         return total_time_string
 
     def on_draw_hud(self, draw_start_time):
-        output = f"Running time: {self.format_time()}"
+        output = f"Running time: {self.format_time(self.running_time)}"
         arcade.draw_text(output, 10, (SCREEN_HEIGHT-20), self.font_color, 16)
 
         # Display timings
@@ -92,10 +88,10 @@ class MyGame(arcade.Window):
     def on_draw(self):
         # Start timing how long this takes
         draw_start_time = timeit.default_timer()
+        self.calculate_fps()
         arcade.start_render()
         self.on_draw_hud(draw_start_time)
         arcade.finish_render()
-        self.calculate_fps()
 
 
 
@@ -113,6 +109,9 @@ class MyGame(arcade.Window):
         need it.
         """
         self.running_time += delta_time
+        draw_start_time = timeit.default_timer()
+        self.processing_time = timeit.default_timer() - draw_start_time
+
 
     def on_resize(self, width: float, height: float):
         """
@@ -166,7 +165,8 @@ def main():
                   SCREEN_HEIGHT,
                   SCREEN_TITLE,
                   SCREEN_FULLSCREEN,
-                  SCREEN_RESIZABLE)
+                  SCREEN_RESIZABLE,
+                  SCREEN_UPDATE_RATE)
     game.setup()
     arcade.run()
 
