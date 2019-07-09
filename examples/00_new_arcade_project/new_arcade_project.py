@@ -21,7 +21,7 @@ SCREEN_RESIZABLE = False
 SCREEN_FULLSCREEN = False
 VISIBLE_MOUSE = True
 # 1/60 means constant 60 fps
-SCREEN_UPDATE_RATE = 1/30
+SCREEN_UPDATE_RATE = 1/60
 
 
 class MyGame(arcade.Window):
@@ -93,8 +93,6 @@ class MyGame(arcade.Window):
         self.on_draw_hud(draw_start_time)
         arcade.finish_render()
 
-
-
     def set_viewport(self, left, right, bottom, top):
         """
         Set the viewport. (What coordinates we can see.
@@ -111,7 +109,6 @@ class MyGame(arcade.Window):
         self.running_time += delta_time
         draw_start_time = timeit.default_timer()
         self.processing_time = timeit.default_timer() - draw_start_time
-
 
     def on_resize(self, width: float, height: float):
         """
