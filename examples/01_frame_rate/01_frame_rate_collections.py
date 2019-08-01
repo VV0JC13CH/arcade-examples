@@ -5,8 +5,8 @@ import arcade
 import collections
 import time
 
-SCREEN_WIDTH = 250
-SCREEN_HEIGHT = 100
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Arcade: FPS example."
 
 

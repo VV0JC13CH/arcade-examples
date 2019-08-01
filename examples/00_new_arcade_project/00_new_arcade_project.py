@@ -12,9 +12,9 @@ Added few useful methods and variables:
 import arcade
 import timeit
 
-SCREEN_WIDTH = 900
+SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "New Arcade Project"
+SCREEN_TITLE = "The Python Arcade Library Examples - New Arcade Project"
 
 # Change default values
 SCREEN_RESIZABLE = False
@@ -43,7 +43,7 @@ class MyGame(arcade.Window):
         self.fps = None
         self.set_mouse_visible(VISIBLE_MOUSE)
         self.font_color=arcade.color.BLACK
-        arcade.set_background_color(arcade.color.SKY_BLUE)
+        arcade.set_background_color(arcade.color.WHITE_SMOKE)
 
         # If you have sprite lists, you should create them here,
         # and set them to None
