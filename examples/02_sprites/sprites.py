@@ -7,6 +7,7 @@ Granted permission to use copyrighted works for education purposes only.
 https://github.com/bitStudioDev/arcade.py-examples"""
 
 import arcade
+import os
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -38,6 +39,13 @@ class SpritesExample(arcade.Window):
         self.animated_bg_island_sprite = None
         self.static_house_sprite = None
 
+        # Set the working directory (where we expect to find files) to the same
+        # directory this .py file is in. You can leave this out of your own
+        # code, but it is needed to easily run the examples using "python -m"
+        # as mentioned at the top of this program.
+        file_path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(file_path)
+
     def setup(self):
         # Create your sprites and sprite lists here
         self.animated_bg_island_sprite = arcade.AnimatedTimeSprite(
@@ -45,15 +53,15 @@ class SpritesExample(arcade.Window):
             center_y=self.height / 2,
         )
         self.animated_bg_island_sprite.textures = []
-        self.animated_bg_island_sprite.textures.append(arcade.load_texture("02_sprites_island1.png", scale=2))
-        self.animated_bg_island_sprite.textures.append(arcade.load_texture("02_sprites_island2.png", scale=2))
-        self.animated_bg_island_sprite.textures.append(arcade.load_texture("02_sprites_island3.png", scale=2))
-        self.animated_bg_island_sprite.textures.append(arcade.load_texture("02_sprites_island2.png", scale=2))
+        self.animated_bg_island_sprite.textures.append(arcade.load_texture("images/sprites_island1.png", scale=2))
+        self.animated_bg_island_sprite.textures.append(arcade.load_texture("images/sprites_island2.png", scale=2))
+        self.animated_bg_island_sprite.textures.append(arcade.load_texture("images/sprites_island3.png", scale=2))
+        self.animated_bg_island_sprite.textures.append(arcade.load_texture("images/sprites_island2.png", scale=2))
 
         self.animated_bg_island_sprite_list = arcade.SpriteList()
         self.animated_bg_island_sprite_list.append(self.animated_bg_island_sprite)
 
-        self.static_house_sprite = arcade.load_texture("02_sprites_house.png")
+        self.static_house_sprite = arcade.load_texture("images/sprites_house.png")
 
     def on_draw(self):
         arcade.start_render()
