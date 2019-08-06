@@ -278,7 +278,14 @@ class CursorInteractionsExample(arcade.Window):
         self.units_sprite_list.draw()
         self.icons_sprite_list.draw()
         self.activate_minimap(self.icon_map_sprite.is_active, self.units_sprite_list)
-
+        arcade.draw_text(
+            text="Copyright 1995 Creative Edge Software Ltd. All rights reserved.",
+            start_x=self.width/2,
+            start_y=10,
+            color=arcade.color.WHITE,
+            anchor_x='center',
+            font_size=14
+        )
         # Cursor on top (must be last)
         self.cursor_sprite_list.draw()
         arcade.finish_render()
