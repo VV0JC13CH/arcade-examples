@@ -9,7 +9,6 @@ https://github.com/bitStudioDev/arcade.py-examples"""
 import arcade
 import os
 
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "The Python Arcade Library Examples - Cursor Interactions"
@@ -46,7 +45,7 @@ class CursorInteractionsExample(arcade.Window):
     def __init__(self, width, height, title, fullscreen, resizable):
         super().__init__(width, height, title, fullscreen, resizable)
         self.set_mouse_visible(VISIBLE_MOUSE)
-        self.font_color=arcade.color.BLACK
+        self.font_color = arcade.color.BLACK
         arcade.set_background_color(arcade.color.WHITE)
 
         # Set the working directory (where we expect to find files) to the same
@@ -84,7 +83,7 @@ class CursorInteractionsExample(arcade.Window):
         self.icon_unit_white_sprite = None
 
         self.icons_sprite_list = None
-        
+
         # GUI horizonstal panel
         self.gui_panel_texture = None
 
@@ -106,10 +105,14 @@ class CursorInteractionsExample(arcade.Window):
             center_x=self.white_unit_sprite.center_x,
             center_y=self.white_unit_sprite.center_y
         )
-        self.white_unit_sprite.textures.append(arcade.load_texture("images/cursor_interactions_unit_idle1.png", scale=0.5))
-        self.white_unit_sprite.textures.append(arcade.load_texture("images/cursor_interactions_unit_idle2.png", scale=0.5))
-        self.red_unit_sprite.textures.append(arcade.load_texture("images/cursor_interactions_unit_idle3.png", scale=0.5))
-        self.red_unit_sprite.textures.append(arcade.load_texture("images/cursor_interactions_unit_idle4.png", scale=0.5))
+        self.white_unit_sprite.textures.append(
+            arcade.load_texture("images/cursor_interactions_unit_idle1.png", scale=0.5))
+        self.white_unit_sprite.textures.append(
+            arcade.load_texture("images/cursor_interactions_unit_idle2.png", scale=0.5))
+        self.red_unit_sprite.textures.append(
+            arcade.load_texture("images/cursor_interactions_unit_idle3.png", scale=0.5))
+        self.red_unit_sprite.textures.append(
+            arcade.load_texture("images/cursor_interactions_unit_idle4.png", scale=0.5))
 
         self.units_sprite_list = arcade.SpriteList()
         self.units_sprite_list.append(self.white_unit_sprite)
@@ -131,7 +134,7 @@ class CursorInteractionsExample(arcade.Window):
         )
 
         # Add only normal_texture on setup:
-        self.cursor_sprite_list=arcade.SpriteList()
+        self.cursor_sprite_list = arcade.SpriteList()
         self.cursor_sprite_list.append(self.cursor_sprite)
 
         self.cursor_above_target = False
@@ -142,7 +145,7 @@ class CursorInteractionsExample(arcade.Window):
             scale=0.75,
             image_width=77,
             image_height=92,
-            center_y=self.height-45,
+            center_y=self.height - 45,
             center_x=200
         )
         self.icon_unit_white_sprite = IconSprite(
@@ -159,7 +162,7 @@ class CursorInteractionsExample(arcade.Window):
             image_width=103,
             image_height=76,
             center_y=self.height - 45,
-            center_x=self.width-100
+            center_x=self.width - 100
         )
 
         self.icon_map_sprite.active_filename = "images/cursor_interactions_map_active.png"
@@ -188,9 +191,11 @@ class CursorInteractionsExample(arcade.Window):
 
     def change_cursor_to_target(self, trigger):
         if trigger:
-            self.cursor_sprite.texture = arcade.load_texture(self.cursor_state_target_filename, scale=self.cursor_sprite.scale)
+            self.cursor_sprite.texture = arcade.load_texture(self.cursor_state_target_filename,
+                                                             scale=self.cursor_sprite.scale)
         else:
-            self.cursor_sprite.texture = arcade.load_texture(self.cursor_state_normal_filename, scale=self.cursor_sprite.scale)
+            self.cursor_sprite.texture = arcade.load_texture(self.cursor_state_normal_filename,
+                                                             scale=self.cursor_sprite.scale)
 
     def change_unit_color(self, button, sprite_list):
         if button == arcade.MOUSE_BUTTON_LEFT:
@@ -214,24 +219,24 @@ class CursorInteractionsExample(arcade.Window):
     def activate_minimap(self, show_minimap, units_sprite_list):
         if show_minimap:
             arcade.draw_texture_rectangle(
-                center_x=self.width-110,
-                center_y=self.height-190,
+                center_x=self.width - 110,
+                center_y=self.height - 190,
                 width=220,
                 height=220,
                 texture=self.gui_panel_texture)
             arcade.draw_texture_rectangle(
-                center_x=self.width-110,
-                center_y=self.height-190,
+                center_x=self.width - 110,
+                center_y=self.height - 190,
                 width=210,
                 height=210,
                 texture=self.static_island_texture)
             for unit_sprite in units_sprite_list:
                 if unit_sprite.is_red:
                     arcade.draw_point(
-                    x=self.width-95,
-                    y=self.height-255,
-                    color=arcade.color.RED,
-                    size=10)
+                        x=self.width - 95,
+                        y=self.height - 255,
+                        color=arcade.color.RED,
+                        size=10)
                 else:
                     arcade.draw_point(
                         x=self.width - 95,
@@ -265,7 +270,7 @@ class CursorInteractionsExample(arcade.Window):
             angle=0)
         arcade.draw_texture_rectangle(
             center_x=self.width / 2,
-            center_y=self.height-40,
+            center_y=self.height - 40,
             width=self.width,
             height=80,
             texture=self.gui_panel_texture,
@@ -308,7 +313,6 @@ class CursorInteractionsExample(arcade.Window):
         self.change_unit_color(button, self.units_sprite_list)
         self.activate_target(button, self.icons_sprite_list)
 
-
     def update(self, delta_time):
         """
         All the logic to move, and the game logic goes here.
@@ -322,7 +326,6 @@ class CursorInteractionsExample(arcade.Window):
         self.change_cursor_to_target(
             arcade.check_for_collision_with_list(self.cursor_sprite, self.units_sprite_list)
         )
-
 
 
 def main():
