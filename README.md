@@ -12,5 +12,4 @@ This series is a work-in-progress.
 | ------------- | ------------- | ------------- |
 | ![New Arcade Library Project Template](/examples/00_new_arcade_project/new_arcade_project_demo.gif) | ![FPS Counters](/examples/01_frame_rate/frame_rate_demo.gif) | ![AnimatedTimeSprite](/examples/02_sprites/sprites_demo.gif) |
 | Cursor Interactions  | Comming soon... | Comming soon... |
-| ------------- | ------------- | ------------- |
-| ![Cursor_Interactions](/examples/03_cursor_interactions/cursor_interactions_demo.gif) | Comming soon... | Comming soon... |
+| ![Cursor_Interactions](/examples/03_cursor_interactions/cursor_interactions_demo.gif) | ... | ... |
