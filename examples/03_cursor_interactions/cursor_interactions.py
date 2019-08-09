@@ -1,11 +1,11 @@
 """
 The Python Arcade Library Examples by bitStudio.dev
-Example with Cursor Interactions Methods.
+Example with Cursor Interactions based on the 1995 Baldies game.
 
 Sprites source: Baldies, DOS version, 1995 Creative Edge Software Ltd.
 Granted permission to use assets from game for education purposes.
 Currently Baldies is available for free as abandonware.
-https://github.com/bitStudioDev/arcade.py-examples"""
+https://github.com/bitStudioDev/arcade-examples"""
 
 import arcade
 import os
@@ -279,14 +279,6 @@ class CursorInteractionsExample(arcade.Window):
         self.units_sprite_list.draw()
         self.icons_sprite_list.draw()
         self.activate_minimap(self.icon_map_sprite.is_active, self.units_sprite_list)
-        arcade.draw_text(
-            text="Copyright 1995 Creative Edge Software Ltd. All rights reserved.",
-            start_x=self.width/2,
-            start_y=10,
-            color=arcade.color.WHITE,
-            anchor_x='center',
-            font_size=14
-        )
         # Cursor on top (must be last)
         self.cursor_sprite_list.draw()
         arcade.finish_render()

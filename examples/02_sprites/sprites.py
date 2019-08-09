@@ -1,11 +1,11 @@
 """
 The Python Arcade Library Examples by bitStudio.dev
-Example with sprites.
+Example with sprites based on the 1995 Baldies game.
 
 Sprites source: Baldies, DOS version, 1995 Creative Edge Software Ltd.
 Granted permission to use assets from game for education purposes.
 Currently Baldies is available for free as abandonware.
-https://github.com/bitStudioDev/arcade.py-examples"""
+https://github.com/bitStudioDev/arcade-examples"""
 
 import arcade
 import os
