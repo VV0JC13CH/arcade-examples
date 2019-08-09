@@ -2,7 +2,7 @@
 Arcade is an easy-to-learn Python library for creating 2D video games. It's place for arcade examples from bitStudio.dev.
 
 ## License
-Everything is free except sprites. bitStudio.dev received permission to use Baldies graphics for educational purposes from Creative Edges Ltd. Any other use of proprietary elements is prohibited. The graphics are inseparable elements of the presented examples. Have a nice day!
+Because of propertary assets everything is under MIT License. bitStudio.dev received permission to use assets from Baldies game created by Creative Edges Ltd. If you want to use these assets, remember to write that Edges made them. Have a nice day!
 
 This series is a work-in-progress.
 
