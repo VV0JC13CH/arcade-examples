@@ -1,5 +1,5 @@
-# arcade.py-examples
-Arcade is an easy-to-learn Python library for creating 2D video games. It's place for arcade examples from bitStudio.dev.
+# arcade-examples
+Arcade is an easy-to-learn Python library for creating 2D video games. It's place for arcade examples from bitStudio.dev blog.
 
 ## License
 Because of use assets from abandonware game, everything is under MIT License. bitStudio.dev received permission to use assets from Baldies game created by Creative Edges Ltd. If you want to use these assets, remember to write that Edges made them. Have a nice day!
