@@ -12,7 +12,6 @@ SCREEN_HEIGHT = 600
 
 class MyGame(arcade.Window):
     """ This class represents the main window of the game. """
-
     def __init__(self):
         """ Initializer """
         # Call the parent class initializer
@@ -45,7 +44,6 @@ class MyGame(arcade.Window):
         self.tiles_list = arcade.SpriteList()
         self.seed = self.generate_seed()
 
-        # --- Place boxes inside a loop
     def update(self, delta_time):
         self.seed = self.generate_seed()
         self.tiles_list = arcade.SpriteList()
