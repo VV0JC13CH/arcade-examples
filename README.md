@@ -11,5 +11,5 @@ This series is a work-in-progress.
 | New Arcade Library Project Template  | FPS Counters | AnimatedTimeSprite |
 | ------------- | ------------- | ------------- |
 | ![New Arcade Library Project Template](/examples/00_new_arcade_project/new_arcade_project_demo.gif) | ![FPS Counters](/examples/01_frame_rate/frame_rate_demo.gif) | ![AnimatedTimeSprite](/examples/02_sprites/sprites_demo.gif) |
-| Cursor Interactions  | Comming soon... | Comming soon... |
-| ![Cursor_Interactions](/examples/03_cursor_interactions/cursor_interactions_demo.gif) | ... | ... |
+| Cursor Interactions  | Perlin Noise | Comming soon... |
+| ![Cursor_Interactions](/examples/03_cursor_interactions/cursor_interactions_demo.gif) | ![Perlin Noise](/examples/04_perlin_noise/perlin_noise_demo.gif) | ... |
